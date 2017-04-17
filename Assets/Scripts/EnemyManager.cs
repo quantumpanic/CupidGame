@@ -37,9 +37,11 @@ public class EnemyManager : MonoBehaviour {
 		foreach (GameObject conv in conveyers) {
 			var enemy = PoolingManager.Instance.Grab("enemy");
 			if (enemy) {
-				enemy.transform.localPosition = new Vector2(conv.transform.localPosition.x, conv.transform.localPosition.y + 500);
+				enemy.transform.localPosition = new Vector2 (conv.transform.localPosition.x, conv.transform.localPosition.y + 500);
 				conv.GetComponent<Conveyer> ().AddObject (enemy);
 				gameManager.NewEnemy (enemy);
+			} else {
+				return;
 			}
 		}
 	}

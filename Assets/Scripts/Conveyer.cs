@@ -17,8 +17,12 @@ public class Conveyer : MonoBehaviour {
 		MoveConveyer ();
 	}
 
+	public int counter = 0;
+
 	public void AddObject(GameObject obj)
 	{
+		counter++;
+		obj.name = "Object-" + gameObject.name + counter.ToString ();
 		objects.Add (obj);
 	}
 

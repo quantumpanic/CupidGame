@@ -55,8 +55,17 @@ public class Enemy : MonoBehaviour, IMatchable {
 
 	void Die()
 	{
+		if (name.Contains("L"))
+			GameObject.Find ("ConveyerL").GetComponent<Conveyer> ().RemoveObject (gameObject);
+		if (name.Contains("R"))
+			GameObject.Find ("ConveyerR").GetComponent<Conveyer> ().RemoveObject (gameObject);
+
 		// return to pool
-		PoolingManager.Instance.Put (gameObject, "enemy");
+		if (!PoolingManager.Instance.enemyPool.Contains (gameObject)) {
+			PoolingManager.Instance.Put (gameObject, "enemy");
+		} else {
+			print (name + " already in pool");
+		}
 
 		// put in back
 		transform.SetAsFirstSibling();
