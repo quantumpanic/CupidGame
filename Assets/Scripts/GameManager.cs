@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+
+	public Player player;
 
 	// Use this for initialization
 	void Start () {
@@ -157,17 +160,20 @@ public interface IMatchCondition
 
 public class MatchBoyGirl : IMatchCondition
 {
+	IReward noReward = new NoReward();
+	IReward Reward100 = new NoReward();
+
 	public bool ResolveMatch(List<IMatchable> list, out IReward reward)
 	{
 		bool success = false;
-		reward = new NoReward ();
+		reward = noReward;
 
 		if (list.Exists (male => male.matchType == MatchType.Male)
 		    &&
 		    list.Exists (female => female.matchType == MatchType.Female)) {
 
 			// there is at least one male and one female
-			reward = new RewardScore100();
+			reward = Reward100;
 
 			success = true;
 		}
@@ -203,5 +209,49 @@ public class RewardScore100 : IReward
 	public void ImburseReward(GameManager gameManager)
 	{
 		gameManager.AddScore (100);
+	}
+}
+
+public interface ILane
+{
+	void New(Conveyer conveyer);
+	void Move ();
+	float lanePos{ get; set; }
+}
+
+public class StandardLane : ILane
+{
+	public float lanePos { get; set; }
+
+	public void New(Conveyer conveyer)
+	{
+		Player.main.lanes.Add (this);
+		lanePos = conveyer.GetComponent<RectTransform>().anchoredPosition.x;
+	}
+
+	public void Move()
+	{
+		// check if this is where player clicked
+
+		if (Input.mousePosition.x <= lanePos + 100 && Input.mousePosition.x >= lanePos - 100) {
+			// move to lane
+			Player.main.MoveTo(lanePos);
+		}
+	}
+}
+
+public class BonusLane : ILane
+{
+	public float lanePos { get; set; }
+
+	public void New(Conveyer conveyer)
+	{
+		Player.main.lanes.Add (this);
+		lanePos = conveyer.transform.position.x;
+	}
+
+	public void Move()
+	{
+
 	}
 }

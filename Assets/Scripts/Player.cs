@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour {
 
 	public static Player main;
+	public List<ILane> lanes = new List<ILane>();
 
 	void Awake()
 	{
@@ -33,6 +34,12 @@ public class Player : MonoBehaviour {
 	public void MoveLeft()
 	{
 		rect.anchoredPosition = new Vector2 (-Screen.width / 4, 200);
+		Shoot ();
+	}
+
+	public void MoveTo(float x)
+	{
+		rect.anchoredPosition = new Vector2 (x, 200);
 		Shoot ();
 	}
 

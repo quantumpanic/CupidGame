@@ -19,7 +19,7 @@ public class Arrow : MonoBehaviour {
 	void Update () {
 		Shrink ();
 		rect.anchoredPosition = new Vector2 (rect.anchoredPosition.x, rect.anchoredPosition.y + (Time.deltaTime * speed * 100));
-		if (rect.anchoredPosition.y > Screen.height/2 - 100) {
+		if (rect.anchoredPosition.y > Screen.height/2 - 300) {
 			image.CrossFadeAlpha (0, 0.1f, false);
 			if (!isFading)
 				Fizzle ();
@@ -40,7 +40,7 @@ public class Arrow : MonoBehaviour {
 		
 	void Shrink()
 	{
-		rect.localScale *= 0.9f;
+		rect.localScale *= 0.95f;
 		if (rect.localScale.x <= 0.2f)
 			rect.localScale = (Vector3.one - (Vector3.up * 2)) * 0.2f;
 	}
@@ -55,6 +55,7 @@ public class Arrow : MonoBehaviour {
 	{
 		image.color = Vector4.one;
 		isFading = false;
+		rect.localScale = Vector2.one;
 	}
 
 	void Recycle()

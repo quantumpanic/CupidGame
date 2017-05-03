@@ -41,7 +41,7 @@ public class PoolingManager : MonoBehaviour {
 
 	void MakeEnemy()
 	{
-		var enemy = Instantiate (prefabEnemy, GameObject.Find("Panel").transform);
+		var enemy = Instantiate (prefabEnemy, GameObject.Find("Enemies").transform);
 		enemy.transform.localScale = Vector3.one * 0.2f;
 		enemy.transform.localPosition = Vector3.zero;
 		enemy.tag = "enemy";

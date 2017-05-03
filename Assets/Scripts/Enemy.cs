@@ -154,7 +154,16 @@ public class LovelyFace : ISpriteModel
 {
 	public void AssignSprites(GameManager gameManager, Enemy enemy)
 	{
-		//enemy.bodySprite.sprite = gameManager.spriteCollection.FindAll(body => body.name.StartsWith("facesad"))[Random.Range(0,1)];
+		enemy.faceSprite.sprite = gameManager.spriteCollection.FindAll(body => body.name.StartsWith("facesad"))[0];
+		enemy.faceSprite.gameObject.SetActive(true);
+	}
+}
+
+public class ShockedFace : ISpriteModel
+{
+	public void AssignSprites(GameManager gameManager, Enemy enemy)
+	{
+		enemy.faceSprite.sprite = gameManager.spriteCollection.FindAll(body => body.name.StartsWith("facesurprise"))[0];
 		enemy.faceSprite.gameObject.SetActive(true);
 	}
 }

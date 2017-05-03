@@ -7,14 +7,21 @@ public class Conveyer : MonoBehaviour {
 
 	public List<GameObject> objects = new List<GameObject>();
 
+	public ILane lane = new StandardLane ();
+
 	// Use this for initialization
 	void Start () {
-		
+		AddLane ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		MoveConveyer ();
+	}
+
+	void AddLane()
+	{
+		lane.New (this);
 	}
 
 	public int counter = 0;
